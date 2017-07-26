@@ -1,0 +1,37 @@
+<div class="header">
+    <ul class="nav nav-pills pull-right">
+        <li><a href="#">Home</a></li>
+        <li><a href="#admin">Admin</a></li>
+        <li class="active"><a href="#user">User</a></li>
+    </ul>
+    <h3 class="text-muted">Itransition Project</h3>
+</div>
+
+<div class="jumbotron">
+    <h1>User Page</h1>
+    <p class="lead">Start building instructions!</p>
+    <p><a class="btn btn-lg btn-success" href="#" role="button">About Us</a></p>
+
+    <div ng-controller="postcontroller">
+        <form name="instructionForm" ng-submit="submitForm()">
+            <input type="text" name="textinfo" ng-model="textinfo"/>
+            <br/>
+            <br/>
+            <button type="submit" class="btn btn-lg btn-success">Submit</button>
+        </form>
+        <p>{{postResultMessage}}</p>
+    </div>
+
+    <div ng-controller="getcontroller">
+        <button class="btn btn-lg btn-success" ng-click="getTextInfo()">Get text from the list</button>
+        <ul>
+            <li ng-repeat="items in response">{{items.textinfo}}</li>
+        </ul>
+
+    </div>
+
+    <br/>
+    <br/>
+
+
+</div>
