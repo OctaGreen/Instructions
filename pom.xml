@@ -86,6 +86,19 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.7.3</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-drag-and-drop-lists -->
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-drag-and-drop-lists</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/showdown -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>showdown</artifactId>
+			<version>0.3.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

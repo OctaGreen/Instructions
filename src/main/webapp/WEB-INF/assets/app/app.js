@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ngRoute', 'dndLists']);
 
 app.config(['$routeProvider',
     function($routeProvider) {
@@ -68,6 +68,41 @@ app.controller('getcontroller', function($scope, $http){
         }, function(response){
             $scope.getResultMessage = "Fail!";
         });
+    }
+});
+
+app.controller("DnDController", function($scope) {
+        $scope.models = {
+            selected: null,
+            lists: {"FieldsList": []},
+            templates: [
+                {type: "Text field", id: 1, message: ""},
+                {type: "Media field", id: 2}
+            ],
+            wholemessage: "Message: "
+        };
+
+        $scope.models.lists.FieldsList.push({type: "Text field", id: 3, message: "Example field. Replace it"});
+
+
+        $scope.$watch('models', function(model) {
+            $scope.modelAsJson = angular.toJson(model, true);
+        }, true);
+
+
+});
+
+app.filter('markdown', function(){
+    var converter = new Showdown.converter();
+        return function(input) {
+            var html = converter.makeHtml(input || '');
+                return html;
+        }
+});
+
+app.filter('trust', function($sce){
+    return function (input) {
+        return $sce.trustAsHtml(input || '');
     }
 });
 

@@ -1,18 +1,3 @@
-<!--
-<div class="header">
-    <ul class="nav nav-pills pull-right">
-        <li><a href="#">Home</a></li>
-        <li class="active"><a href="#admin">Admin</a></li>
-        <li><a href="#user">User</a></li>
-    </ul>
-    <h3 class="text-muted">Itransition Project</h3>
-</div>
-
-<div class="jumbotron">
-    <h1>Admin Page</h1>
-    <p class="lead">Some questions to admin</p>
-    <p><a class="btn btn-lg btn-success" href="#contact" role="button">Contact today</a></p>
-</div>-->
 
 <nav class="navbar navbar-fixed-top navbar-inverse">
     <div class="container">
@@ -42,4 +27,20 @@
     <h1>Admin Page</h1>
     <p class="lead">Some questions to admin</p>
     <p><a class="btn btn-lg btn-success" href="#contact" role="button">Contact today</a></p>
+    <div class="row">
+        <div class="col-sm-6">
+            <p>Просто начните вводить текст в текстовое поле ниже используя html теги.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <textarea ng-model="mdText"></textarea>
+        </div>
+        <div class="col-sm-6" ng-bind-html="mdText|markdown|trust">
+            <h1><label>{{mdText}}</label></h1>
+        </div>
+    </div>
+
+
+
 </div>
