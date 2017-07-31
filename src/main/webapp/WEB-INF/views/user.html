@@ -77,7 +77,7 @@
                                             <p><input class="form-control" type="file" file-model = "uploadedFile"></p>
                                             <button type="submit" class="btn btn-default" ng-click = "uploadFile()">Upload</button>
                                             <p><label ng-bind="uploadResult"/></p>
-                                            <label ng-bind="item.imgName = filename"></label>
+                                            <div ng-bind="item.imgName = filename"></div>
                                         </div>
                                         <p></p>
                                 </li>
@@ -86,17 +86,18 @@
 
                         </div>
 
+<!--Застрял здесь. Хочу сделать проверку по значениям свойств. Приблизительно в таком духе: ng-if="item.imgName == file.slice(32)" <img src=...>-->
                     </div>
                     <div ng-repeat="list in models.lists">
                         <ul>
                             <li ng-repeat="item in list">
-                               <!-- <div ng-bind-html="item.message|markdown|trust"></div>-->
-
                                 <div ng-if="item.type=='Text field'">
                                     <div ng-bind-html="item.message|markdown|trust"></div>
                                 </div>
-                                <div ng-if="item.type=='Media field'">
-                                    <label>{{item.imgName}}</label>
+                                <div ng-if="item.type=='Media field'" ng-controller="getFilesController" ng-init="getFiles()">
+                                    <div ng-repeat="file in lstFiles" ng-if="item.imgName === file.slice(32)">
+                                        <img src="{{file}}" style="max-height: 300px; max-width: 300px">
+                                    </div>
                                 </div>
                             </li>
                         </ul>

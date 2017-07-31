@@ -43,7 +43,9 @@ public class RestUploadController {
         }catch(Exception e){
             throw e;
         }
-
+        for(String s: lstFiles){
+            System.out.println(s);
+        }
         return lstFiles;
     }
 

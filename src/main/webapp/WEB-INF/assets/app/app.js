@@ -128,7 +128,6 @@ app.controller('uploadFileController', ['$scope', '$http', function($scope, $htt
         var data = new FormData();
         data.append('uploadfile', file);
         $scope.filename = file.name;
-
         var config = {
             transformRequest: angular.identity,
             transformResponse: angular.identity,
@@ -153,6 +152,7 @@ app.controller('getFilesController', ['$scope', '$http', function($scope, $http)
         }, function (response) {
             alert(response.data);
         });
+
     };
 }]);
 

@@ -54,8 +54,10 @@
         <hr/>
         <div class="col-sm-offset-2" ng-model="lstFiles">
             <ul>
-                <!--<li ng-repeat="file in lstFiles"><a href='{{file}}'>{{file}}</a></li>-->
-                <li ng-repeat="file in lstFiles"><img src="{{file}}" style="max-height: 500px; max-width: 500px"></li>
+                <li ng-repeat="file in lstFiles">
+                    <a href='{{file}}'>{{file}}</a>
+                    <p><label>{{file.slice(32)}}</label></p>
+                </li>
             </ul>
         </div>
     </div>
