@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 @Service
 public class StorageService {
     Logger log = LoggerFactory.getLogger(this.getClass().getName());
-    private final Path rootLocation = Paths.get("F://");
+    private final Path rootLocation = Paths.get("F://FILESTORAGE");
 
     public void store(MultipartFile file){
         try {

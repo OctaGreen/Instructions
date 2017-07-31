@@ -33,7 +33,8 @@ public class RestUploadController {
     }
 
     @GetMapping("/getallfiles")
-    public List<String> getListFiles() {List<String> lstFiles = new ArrayList<String>();
+    public List<String> getListFiles() {
+        List<String> lstFiles = new ArrayList<String>();
         try{
             lstFiles = files.stream()
                     .map(fileName -> MvcUriComponentsBuilder

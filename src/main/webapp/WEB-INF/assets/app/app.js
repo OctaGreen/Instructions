@@ -38,7 +38,7 @@ app.controller('AdminController',
     }
 );
 
-app.controller('postcontroller', function($scope, $http){
+/*app.controller('postcontroller', function($scope, $http){
     $scope.submitForm = function(){
         var url = "http://localhost:8080/postinstruction";
         var config = {
@@ -69,7 +69,7 @@ app.controller('getcontroller', function($scope, $http){
             $scope.getResultMessage = "Fail!";
         });
     }
-});
+});*/
 
 app.controller("DnDController", function($scope) {
         $scope.models = {
@@ -77,9 +77,8 @@ app.controller("DnDController", function($scope) {
             lists: {"FieldsList": []},
             templates: [
                 {type: "Text field", id: 1, message: ""},
-                {type: "Media field", id: 2}
-            ],
-            wholemessage: "Message: "
+                {type: "Media field", id: 2, imgName: ""}
+            ]
         };
 
         $scope.models.lists.FieldsList.push({type: "Text field", id: 3, message: "Example field. Replace it"});
@@ -123,12 +122,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
 }]);
 
 app.controller('uploadFileController', ['$scope', '$http', function($scope, $http){
-    $scope.doUploadFile = function(){
+    $scope.uploadFile = function(){
         var file = $scope.uploadedFile;
         var url = "/api/uploadfile";
-
         var data = new FormData();
         data.append('uploadfile', file);
+        $scope.filename = file.name;
 
         var config = {
             transformRequest: angular.identity,
@@ -136,7 +135,7 @@ app.controller('uploadFileController', ['$scope', '$http', function($scope, $htt
             headers : {
                 'Content-Type': undefined
             }
-        }
+        };
 
         $http.post(url, data, config).then(function (response) {
             $scope.uploadResult=response.data;
@@ -147,7 +146,7 @@ app.controller('uploadFileController', ['$scope', '$http', function($scope, $htt
 }]);
 
 app.controller('getFilesController', ['$scope', '$http', function($scope, $http){
-    $scope.doGetFiles = function(){
+    $scope.getFiles = function(){
         var url = "/api/getallfiles";
         $http.get(url).then(function (response) {
             $scope.lstFiles = response.data;
@@ -156,5 +155,6 @@ app.controller('getFilesController', ['$scope', '$http', function($scope, $http)
         });
     };
 }]);
+
 
 

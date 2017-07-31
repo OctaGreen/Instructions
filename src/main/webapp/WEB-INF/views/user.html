@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" >
                 <div class="row">
 
                     <div class="panel panel-info">
@@ -70,7 +70,15 @@
                                          dnd-moved="list.splice($index, 1)"
                                          dnd-selected="models.selected = item"
                                          ng-class="{'selected': models.selected === item}">Grab me!</div>
-                                        <input type="text" ng-model="item.message" class="form-control input-lg" >
+                                        <div ng-if="item.type=='Text field'">
+                                            <input type="text" ng-model="item.message" class="form-control input-lg">
+                                        </div>
+                                        <div ng-if="item.type=='Media field'" ng-controller="uploadFileController">
+                                            <p><input class="form-control" type="file" file-model = "uploadedFile"></p>
+                                            <button type="submit" class="btn btn-default" ng-click = "uploadFile()">Upload</button>
+                                            <p><label ng-bind="uploadResult"/></p>
+                                            <label ng-bind="item.imgName = filename"></label>
+                                        </div>
                                         <p></p>
                                 </li>
 
@@ -81,8 +89,16 @@
                     </div>
                     <div ng-repeat="list in models.lists">
                         <ul>
-                            <!--<li ng-repeat="item in list" ng-bind-html="item.message|markdown|trust"></li>-->
-                            <label ng-repeat="item in list" ng-bind-html="item.message|markdown|trust"/>
+                            <li ng-repeat="item in list">
+                               <!-- <div ng-bind-html="item.message|markdown|trust"></div>-->
+
+                                <div ng-if="item.type=='Text field'">
+                                    <div ng-bind-html="item.message|markdown|trust"></div>
+                                </div>
+                                <div ng-if="item.type=='Media field'">
+                                    <label>{{item.imgName}}</label>
+                                </div>
+                            </li>
                         </ul>
                     </div>
 
