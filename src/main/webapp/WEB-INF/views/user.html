@@ -78,34 +78,15 @@
 
                         </div>
 
-                    <!-- Пытаюсь собрать всю информацию, что пользователь вводит в текстовых формах (item.message).
-                        На выходе хочу получить текст, отредактированный markdown'ом -->
                     </div>
-                    <div ng-repeat="item in models.lists">
-                        <div ng-repeat="item in list" ng-model="mdText">
-                            {{models.wholemessage}} += {{item.message}}
-                        </div>
-                        {{models.wholemessage}}
-                        <p></p>
+                    <div ng-repeat="list in models.lists">
+                        <ul>
+                            <!--<li ng-repeat="item in list" ng-bind-html="item.message|markdown|trust"></li>-->
+                            <label ng-repeat="item in list" ng-bind-html="item.message|markdown|trust"/>
+                        </ul>
                     </div>
-                    <!--------------->
 
-                    <!--Рабочий пример-->
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p>Просто начните вводить текст в текстовое поле ниже используя html теги.</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <textarea ng-model="mdText"></textarea>
-                        </div>
-                        <div class="col-sm-6" ng-bind-html="mdText|markdown|trust">
-                            <h1><label>{{mdText}}</label></h1>
-                        </div>
-                    </div>
-                    <!---------------->
-
+                    
 
                 </div>
             </div>
