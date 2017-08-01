@@ -1,5 +1,7 @@
 package com.example.demo.fileuploading;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +31,9 @@ public class RestUploadController {
             files.add(file.getOriginalFilename());
             return "You successfully uploaded - " + file.getOriginalFilename();
         } catch (Exception e) {
-            throw new Exception("FAIL! Maybe You had uploaded the file before or the file's size > 5000KB");
+            Logger log = LoggerFactory.getLogger(RestUploadController.class);
+            log.info("An error occured during file upload: " + Arrays.toString(e.getStackTrace()));
+            return "An error occured during file upload";
         }
     }
 

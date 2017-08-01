@@ -136,10 +136,27 @@ app.controller('uploadFileController', ['$scope', '$http', function($scope, $htt
             }
         };
 
-        $http.post(url, data, config).then(function (response) {
+        /*$http.post(url, data, config).then(function (response) {
             $scope.uploadResult=response.data;
         }, function (response) {
             $scope.uploadResult=response.data;
+        });*/
+        $http.post(url, data, config).then(function (response) {
+            $scope.uploadResult=response.data;
+            var url = "/api/getallfiles";
+            $http.get(url).then(function (response) {
+                $scope.lstFiles = response.data;
+            }, function (response) {
+                alert(response.data);
+            });
+        }, function (response) {
+            $scope.uploadResult=response.data;
+            var url = "/api/getallfiles";
+            $http.get(url).then(function (response) {
+                $scope.lstFiles = response.data;
+            }, function (response) {
+                alert(response.data);
+            });
         });
     };
 }]);

@@ -1,32 +1,63 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Instruction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int instructionId;
 
-    @JsonView
-    private String textinfo;
+    @NotEmpty
+    private String title;
+
+    @NotEmpty
+    private String author;
+
+    @NotEmpty
+    private Date creationDate;
+
+    //private List<> список тегов к инструкции
+
+    @NotEmpty
+    private String category;
+
+    @OneToMany
+    @NotEmpty
+    private List<Step> stepsList;
 
     protected Instruction(){}
 
-    public Instruction(String textinfo){
-        this.textinfo = textinfo;
+    public Instruction(String title, String author, Date creationDate, String category, List<Step> stepsList){
+        this.title = title;
+        this.author = author;
+        this.creationDate = creationDate;
+        this.category = category;
+        this.stepsList.addAll(stepsList);
     }
 
-    public String getTextInfo(){
-        return textinfo;
-    }
+    public void setTitle(String title){ this.title = title; }
 
-    public void setTextInfo(String text){
-        this.textinfo = text;
-    }
+    public String getTitle(){ return title; }
+
+    public void setAuthor(String author){ this.author = author; }
+
+    public String getAuthor(){ return author; }
+
+    public void setCreationDate(Date creationDate){ this.creationDate = creationDate; }
+
+    public Date getCreationDate(){ return creationDate; }
+
+    public void setCategory(String category){ this.category = category; }
+
+    public String getCategory(){ return category; }
+
+    public void addStepToStepsList(Step step) { stepsList.add(step); }
+
+    public List<Step> getStepsList(){ return stepsList; }
 }

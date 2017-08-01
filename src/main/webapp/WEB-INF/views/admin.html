@@ -54,7 +54,7 @@
         <hr/>
         <div class="col-sm-offset-2" ng-model="lstFiles">
             <ul>
-                <li ng-repeat="file in lstFiles">
+                <li ng-repeat="file in lstFiles" ng-if="file.slice(32) === '1.jpg'">
                     <a href='{{file}}'>{{file}}</a>
                     <p><label>{{file.slice(32)}}</label></p>
                 </li>
