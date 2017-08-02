@@ -16,31 +16,33 @@ public class StepContent {
     @NotEmpty
     private String type;
 
-    @NotEmpty
-    private String information;
+    private String message;
 
-///Можно выбросить при условии что порядок сохраняется в таблице?
+    private String files;
+
     @NotEmpty
-    private Integer elementId;
-////
+    private Integer position;
 
     protected StepContent(){}
 
-    public StepContent(String type, String information, Integer elementId){
+    public StepContent(String type, Integer position){
         this.type = type;
-        this.information = information;
-        this.elementId = elementId;
+        this.position = position;
     }
 
     public void setType(String type){ this.type = type; }
 
     public String getType(){ return type; }
 
-    public void setInformation(String information){ this.information = information; }
+    public void setInformation(String information){ this.message = information; }
 
-    public String getInformation(){ return information; }
+    public String getInformation(){ return message; }
 
-    public void setElementId(Integer elementId){ this.elementId = elementId; }
+    public void setFiles(String files){ this.files = files; }
 
-    public Integer getElementId(){ return elementId; }
+    public String getFiles(){ return files; }
+
+    public void setElementId(Integer position){ this.position = position; }
+
+    public Integer getElementId(){ return position; }
 }

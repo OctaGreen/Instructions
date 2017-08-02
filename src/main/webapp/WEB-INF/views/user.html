@@ -95,13 +95,12 @@
                             <h3 class="panel-title">Step editing</h3>
                             <input type="text" ng-model="headline" class="form-control">
                         </div>
-                        <div ng-repeat="list in models.lists">
-                            <ul dnd-list="list">
-                                <li ng-repeat="item in list">
+                            <ul dnd-list="models.contentList">
+                                <li ng-repeat="item in models.contentList">
                                     <div dnd-handle class="handle"
                                          dnd-draggable="item"
                                          dnd-effect-allowed="move"
-                                         dnd-moved="list.splice($index, 1)"
+                                         dnd-moved="models.contentList.splice($index, 1)"
                                          dnd-selected="models.selected = item"
                                          ng-class="{'selected': models.selected === item}"><strong>Grab me!</strong>
                                         <span ng-bind="item.position=$index" ng-hide="true"></span>
@@ -116,7 +115,6 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
                     </div>
 
                     <div class="panel panel-default">
@@ -137,36 +135,23 @@
                         <h3 class="panel-title">{{headline}}</h3>
                     </div>
                     <div class="panel-body">
-                        <div ng-repeat="list in models.lists">
+
                             <ul>
-                                <li ng-repeat="item in list">
+                                <li ng-repeat="item in models.contentList">
                                     <div ng-if="item.type=='Text field'">
                                         <div ng-bind-html="item.message|markdown|trust"></div>
                                     </div>
                                     <div ng-if="item.type=='Media field'">
-                                        <div ng-repeat="file in item.files">
+                                        <!--<div ng-repeat="file in item.files">
                                             <img ng-src="{{file}}" style="max-height: 300px; max-width: 300px">
-                                        </div>
+                                        </div>-->
+                                        <img ng-src="{{item.files}}" style="max-height: 300px; max-width: 300px">
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+
                     </div>
                 </div>
-                <!--<div ng-repeat="list in models.lists">
-                    <ul>
-                        <li ng-repeat="item in list">
-                            <div ng-if="item.type=='Text field'">
-                                <div ng-bind-html="item.message|markdown|trust"></div>
-                            </div>
-                            <div ng-if="item.type=='Media field'">
-                                <div ng-repeat="file in item.files">
-                                    <img ng-src="{{file}}" style="max-height: 300px; max-width: 300px">
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>-->
             </div>
 
         </div>

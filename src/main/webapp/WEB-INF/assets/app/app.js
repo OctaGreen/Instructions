@@ -42,14 +42,14 @@ app.controller("StepController", function($scope) {
     $scope.headline = "Example headline";
     $scope.models = {
         selected: null,
-        lists: {"FieldsList": []},
+        contentList: [],
         templates: [
             {type: "Text field", id: 1, message: "", position: null},
-            {type: "Media field", id: 2, imgName: "", files: [], position: null}
+            {type: "Media field", id: 2, files: "", position: null}
         ]
     };
 
-    $scope.models.lists.FieldsList.push({type: "Text field", id: 3, message: "Example field. Replace it", position: 0});
+    $scope.models.contentList.push({type: "Text field", id: 3, message: "Example field. Replace it", position: 0});
 
 
     $scope.$watch('models', function(model) {
@@ -107,17 +107,18 @@ app.controller('uploadFileController', ['$scope', '$http', function($scope, $htt
         $http.post(url, data, config).success(function (response, status) {
             var restObj = JSON.parse(response);
             $scope.uploadResult=restObj.message;
-            item.files.push(restObj.fileUrl);
+     /*       item.files.push(restObj.fileUrl);*/
+            item.files = restObj.fileUrl;
         });
     };
 }]);
 
 app.controller('CreateInstructionController', function($scope){
     $scope.title = 'some title';
-    $scope.author = 'Author testing';
-    $scope.creationDate = 'some date';
+    $scope.author = 'anton@itransition.com';
+    $scope.creationDate = '02.08.2017';
     $scope.category = 'some category';
     $scope.shortDescription = 'balblabla short description';
-
+    $scope.stepsList = [];
 
 });
