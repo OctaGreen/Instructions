@@ -40,19 +40,15 @@ app.controller('AdminController',
 
 app.controller("StepController", function($scope) {
     $scope.headline = "Example headline";
-    $scope.models = {
-        selected: null,
-        contentList: [],
-        templates: [
-            {type: "Text field", id: 1, message: "", position: null},
-            {type: "Media field", id: 2, files: "", position: null}
-        ]
-    };
-
-    $scope.models.contentList.push({type: "Text field", id: 3, message: "Example field. Replace it", position: 0});
+    $scope.contentList = [];
+    $scope.templates = [
+        {type: "Text field", id: 1, message: "", position: null},
+        {type: "Media field", id: 2, files: "", position: null}
+    ];
+    $scope.contentList.push({type: "Text field", id: 3, message: "Example field. Replace it", position: 0});
 
 
-    $scope.$watch('models', function(model) {
+    $scope.$watch('contentList', function(model) {
         $scope.modelAsJson = angular.toJson(model, true);
     }, true);
 
@@ -120,5 +116,8 @@ app.controller('CreateInstructionController', function($scope){
     $scope.category = 'some category';
     $scope.shortDescription = 'balblabla short description';
     $scope.stepsList = [];
-
+//stepsList = [{headline, content}, {headline, content}]
+    $scope.addStep = function($scope){
+        $scope.stepsList.push()
+    }
 });
