@@ -24,7 +24,7 @@ public class RestUploadController {
 
     List<String> files = new ArrayList<String>();
 
-    @PostMapping("/uploadfile")
+    /*@PostMapping("/uploadfile")
     public String uploadFileMulti(@RequestParam("uploadfile") MultipartFile file) throws Exception {
         try {
             storageService.store(file);
@@ -35,8 +35,19 @@ public class RestUploadController {
             log.info("An error occured during file upload: " + Arrays.toString(e.getStackTrace()));
             return "An error occured during file upload";
         }
+    }*/
+    @PostMapping(value = "/uploadfile", produces = "application/json")
+    public String uploadFileMulti(@RequestParam("uploadfile") MultipartFile file) throws Exception {
+        try {
+            storageService.store(file);
+            files.add(file.getOriginalFilename());
+            String response = "{\"message\": \"You successfully uploaded - "+file.getOriginalFilename()+"\"," +
+                    "\"fileUrl\":\"/api/files/"+file.getOriginalFilename()+"\"}";
+            return response;
+        } catch (Exception e) {
+            throw new Exception("FAIL! Maybe You had uploaded the file before or the file's size > 5000KB");
+        }
     }
-
     @GetMapping("/getallfiles")
     public List<String> getListFiles() {
         List<String> lstFiles = new ArrayList<String>();

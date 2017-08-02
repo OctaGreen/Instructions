@@ -38,65 +38,33 @@ app.controller('AdminController',
     }
 );
 
-/*app.controller('postcontroller', function($scope, $http){
-    $scope.submitForm = function(){
-        var url = "http://localhost:8080/postinstruction";
-        var config = {
-            headers : {
-                'Content-Type': 'application/json;charset=utf-8;'
-            }};
-        var data = {textinfo: $scope.textinfo};
+app.controller("StepController", function($scope) {
+    $scope.headline = "Example headline";
+    $scope.models = {
+        selected: null,
+        lists: {"FieldsList": []},
+        templates: [
+            {type: "Text field", id: 1, message: "", position: null},
+            {type: "Media field", id: 2, imgName: "", files: [], position: null}
+        ]
+    };
 
-        $http.post(url, data, config).then(function(response){
-            $scope.postResultMessage = "Successful!";
-        }, function(response){
-            $scope.postResultMessage = "Fail!";
-        });
-        $scope.textinfo = "";
-    }
-});
-
-app.controller('getcontroller', function($scope, $http){
-    $scope.getTextInfo = function(){
-        var url = "http://localhost:8080/getinstruction";
-        var config = {
-            headers : {
-                'Content-Type': 'application/json;charset=utf-8;'
-            }};
-        $http.get(url, config).then(function(response) {
-            $scope.response = response.data
-        }, function(response){
-            $scope.getResultMessage = "Fail!";
-        });
-    }
-});*/
-
-app.controller("DnDController", function($scope) {
-        $scope.models = {
-            selected: null,
-            lists: {"FieldsList": []},
-            templates: [
-                {type: "Text field", id: 1, message: ""},
-                {type: "Media field", id: 2, imgName: ""}
-            ]
-        };
-
-        $scope.models.lists.FieldsList.push({type: "Text field", id: 3, message: "Example field. Replace it"});
+    $scope.models.lists.FieldsList.push({type: "Text field", id: 3, message: "Example field. Replace it", position: 0});
 
 
-        $scope.$watch('models', function(model) {
-            $scope.modelAsJson = angular.toJson(model, true);
-        }, true);
+    $scope.$watch('models', function(model) {
+        $scope.modelAsJson = angular.toJson(model, true);
+    }, true);
 
 
 });
 
 app.filter('markdown', function(){
     var converter = new Showdown.converter();
-        return function(input) {
-            var html = converter.makeHtml(input || '');
-                return html;
-        }
+    return function(input) {
+        var html = converter.makeHtml(input || '');
+        return html;
+    }
 });
 
 app.filter('trust', function($sce){
@@ -122,7 +90,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 }]);
 
 app.controller('uploadFileController', ['$scope', '$http', function($scope, $http){
-    $scope.uploadFile = function(){
+    $scope.uploadFile = function(item){
         var file = $scope.uploadedFile;
         var url = "/api/uploadfile";
         var data = new FormData();
@@ -136,42 +104,20 @@ app.controller('uploadFileController', ['$scope', '$http', function($scope, $htt
             }
         };
 
-        /*$http.post(url, data, config).then(function (response) {
-            $scope.uploadResult=response.data;
-        }, function (response) {
-            $scope.uploadResult=response.data;
-        });*/
-        $http.post(url, data, config).then(function (response) {
-            $scope.uploadResult=response.data;
-            var url = "/api/getallfiles";
-            $http.get(url).then(function (response) {
-                $scope.lstFiles = response.data;
-            }, function (response) {
-                alert(response.data);
-            });
-        }, function (response) {
-            $scope.uploadResult=response.data;
-            var url = "/api/getallfiles";
-            $http.get(url).then(function (response) {
-                $scope.lstFiles = response.data;
-            }, function (response) {
-                alert(response.data);
-            });
+        $http.post(url, data, config).success(function (response, status) {
+            var restObj = JSON.parse(response);
+            $scope.uploadResult=restObj.message;
+            item.files.push(restObj.fileUrl);
         });
     };
 }]);
 
-app.controller('getFilesController', ['$scope', '$http', function($scope, $http){
-    $scope.getFiles = function(){
-        var url = "/api/getallfiles";
-        $http.get(url).then(function (response) {
-            $scope.lstFiles = response.data;
-        }, function (response) {
-            alert(response.data);
-        });
-
-    };
-}]);
+app.controller('CreateInstructionController', function($scope){
+    $scope.title = 'some title';
+    $scope.author = 'Author testing';
+    $scope.creationDate = 'some date';
+    $scope.category = 'some category';
+    $scope.shortDescription = 'balblabla short description';
 
 
-
+});

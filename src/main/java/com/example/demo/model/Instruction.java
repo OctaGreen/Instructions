@@ -27,17 +27,21 @@ public class Instruction {
     @NotEmpty
     private String category;
 
+    @NotEmpty
+    private String shortDescription;
+
     @OneToMany
     @NotEmpty
     private List<Step> stepsList;
 
     protected Instruction(){}
 
-    public Instruction(String title, String author, Date creationDate, String category, List<Step> stepsList){
+    public Instruction(String title, String author, Date creationDate, String category, String shortDescription, List<Step> stepsList){
         this.title = title;
         this.author = author;
         this.creationDate = creationDate;
         this.category = category;
+        this.shortDescription = shortDescription;
         this.stepsList.addAll(stepsList);
     }
 
@@ -56,6 +60,10 @@ public class Instruction {
     public void setCategory(String category){ this.category = category; }
 
     public String getCategory(){ return category; }
+
+    public void setShortDescription(String shortDescription){ this.shortDescription = shortDescription; }
+
+    public String getShortDescription(){ return shortDescription; }
 
     public void addStepToStepsList(Step step) { stepsList.add(step); }
 
