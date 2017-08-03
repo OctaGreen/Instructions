@@ -162,10 +162,93 @@ app.directive('showStepbutton', [function(){
     }
 }]);
 
-app.directive('showStep', function(){
+app.directive('showStep', [function(){
     return{
         restrict: 'AE',
         replace: false
 
     }
-});
+}]);
+
+app.directive('toolsPanel',[function(){
+    return{
+        restrict: 'AE',
+        replace: false,
+        template: '<div class="panel panel-info">'+
+                    '<div class="panel-heading">'+
+                        '<h3 class="panel-title">New Elements</h3>'+
+                    '</div>'+
+                    '<div class="panel-body">'+
+                        '<ul dnd-list="list">'+
+                            '<li ng-repeat="item in templates" dnd-draggable="item" dnd-effect-allowed="copy" dnd-copied="item.id = item.id + 1">'+
+                                '{{item.type}}'+
+                            '</li>'+
+                        '</ul>'+
+                    '</div>'+
+                '</div>'+
+
+                '<div class="panel panel-danger">'+
+                    '<div class="panel-heading">'+
+                        '<h2 class="panel-title">Trashcan</h2>'+
+                    '</div>'+
+                    '<div class="panel-body">'+
+                        '<ul dnd-list="[]">'+
+                            '<li><img src="img/recyclebin.png"></li>'+
+                        '</ul>'+
+                    '</div>'+
+                '</div>'
+    }
+}]);
+
+app.directive('editingPanel', [function(){
+    return{
+        restrict: 'AE',
+        replace: false,
+        template: '<div class="panel panel-info">'+
+                        '<div class="panel-heading">'+
+                            '<h3 class="panel-title">Step editing</h3>'+
+                            '<input type="text" ng-model="headline" class="form-control">'+
+                        '</div>'+
+                        '<ul dnd-list="contentList">'+
+                            '<li ng-repeat="item in contentList">'+
+                                '<div dnd-handle class="handle" dnd-draggable="item" dnd-effect-allowed="move" dnd-moved="contentList.splice($index, 1)">' +
+                                    '<strong>Grab me!</strong>'+
+                                    '<span ng-bind="item.position=$index" ng-hide="true"></span>'+
+                                '</div>'+
+                                '<div ng-if="item.type==\'Text field\'">'+
+                                    '<input type="text" ng-model="item.message" class="form-control input-lg">'+
+                                '</div>'+
+                                '<div ng-if="item.type==\'Media field\'" ng-controller="uploadFileController">'+
+                                    '<p><input class="form-control" type="file" file-model = "uploadedFile"></p>'+
+                                    '<button type="submit" class="btn btn-default" ng-click = "uploadFile(item)">Upload</button>'+
+                                    '<p><label ng-bind="uploadResult"/></p>'+
+                                '</div>'+
+                            '</li>'+
+                        '</ul>'+
+                    '</div>'
+    }
+}]);
+
+app.directive('resultPanel', [function(){
+    return{
+        restrict: 'AE',
+        replace: false,
+        template: '<div class="panel panel-default">'+
+                    '<div class="panel-heading">'+
+                        '<h3 class="panel-title">{{headline}}</h3>'+
+                    '</div>'+
+                    '<div class="panel-body">'+
+                        '<ul>'+
+                            '<div ng-repeat="item in contentList">'+
+                                '<div ng-if="item.type==\'Text field\'">'+
+                                    '<div ng-bind-html="item.message|markdown|trust"></div>'+
+                                '</div>'+
+                                '<div ng-if="item.type==\'Media field\'">'+
+                                    '<img ng-src="{{item.files}}" style="max-height: 300px; max-width: 300px">'+
+                                '</div>'+
+                            '</div>'+
+                        '</ul>'+
+                    '</div>'+
+                '</div>'
+    }
+}]);
