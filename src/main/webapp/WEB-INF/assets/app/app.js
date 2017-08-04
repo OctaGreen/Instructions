@@ -59,46 +59,50 @@ app.controller('CreateInstructionController', function($scope){
 });
 */
 
-app.controller("StepController", function($scope) {
+app.controller("StepController", function($scope, $http) {
     $scope.title = 'some title';
-    $scope.author = 'anton@itransition.com';
+    $scope.author = 'anton@something.com';
     $scope.creationDate = '02.08.2017';
     $scope.category = 'some category';
     $scope.shortDescription = 'balblabla short description';
     $scope.stepsList = [];
+    $scope.stepIndex = null;
 
     $scope.headline = "Example Headline";
 
     $scope.contentList = [];
     $scope.templates = [
-        {type: "Text field", id: 1, message: "", position: null},
-        {type: "Media field", id: 2, files: "", position: null}
+        {type: "Text field", message: "", position: null},
+        {type: "Media field", files: "", position: null}
     ];
 
-    $scope.contentList.push({type: "Text field", id: 3, message: "Example field. Replace it", position: 0});
-    $scope.stepsList.push({headline: $scope.headline, contentList: $scope.contentList});
-
-//Как указать на изменяемость переменной headline (выше)? Думаю, что $scope берет значения из конкретной узкой области видимости
-
+////Начальные значения для шага
+    $scope.contentList.push({type: "Text field", message: "Example field. Replace it", position: 0});
+    $scope.stepsList.push({headline: $scope.headline, contentList: $scope.contentList, stepIndex: 0});
+////
     $scope.addStepBuilder = function(){
-        $scope.stepsList.push({headline: $scope.headline, contentList: $scope.contentList});
+        $scope.stepsList.push({headline: $scope.headline, contentList: $scope.contentList, stepIndex: $scope.stepIndex});
     };
 
-    $scope.$watch('contentList', function(model) {
-        $scope.modelAsJson = angular.toJson(model, true);
-    }, true);
+    $scope.deleteStep = function(){
+        $scope.stepsList.pop();
+    };
+
+    $scope.saveInstruction = function(){
+        var url = "/createinstruction";
+        var data = { title: $scope.title, author: $scope.author, creationDate: $scope.creationDate, category: $scope.category, shortDescription: $scope.shortDescription, stepsList: $scope.stepsList};
+        var config = {
+            headers : {
+                'Content-Type': 'application/json;'
+            }
+        };
+        $http.post(url, data, config).success(function (response) {});
+    };
 
     $scope.$watch('stepsList', function(model) {
         $scope.instructionModelAsJson = angular.toJson(model, true);
     }, true);
 });
-
-
-
-
-
-
-
 
 
 app.filter('markdown', function(){
@@ -154,21 +158,8 @@ app.controller('uploadFileController', ['$scope', '$http', function($scope, $htt
     };
 }]);
 
-app.directive('showStepbutton', [function(){
-    return{
-        restrict: 'AE',
-        replace: false,
-        template: '<div class="row"><div class="col-sm-12"><button class="btn btn-info" data-toggle="collapse" data-target="#showStepAction" ng-bind="headline" style="width: 100%"></button></div></div>'
-    }
-}]);
 
-app.directive('showStep', [function(){
-    return{
-        restrict: 'AE',
-        replace: false
 
-    }
-}]);
 
 app.directive('toolsPanel',[function(){
     return{
@@ -180,7 +171,7 @@ app.directive('toolsPanel',[function(){
                     '</div>'+
                     '<div class="panel-body">'+
                         '<ul dnd-list="list">'+
-                            '<li ng-repeat="item in templates" dnd-draggable="item" dnd-effect-allowed="copy" dnd-copied="item.id = item.id + 1">'+
+                            '<li ng-repeat="item in templates" dnd-draggable="item" dnd-effect-allowed="copy">'+
                                 '{{item.type}}'+
                             '</li>'+
                         '</ul>'+
@@ -202,6 +193,7 @@ app.directive('toolsPanel',[function(){
 
 app.directive('editingPanel', [function(){
     return{
+        controller: 'StepController',
         restrict: 'AE',
         replace: false,
         template: '<div class="panel panel-info">'+

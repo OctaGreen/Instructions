@@ -38,4 +38,5 @@ public class InstructionController {
     public @ResponseBody void updateInstruction(@RequestBody Instruction instruction){
         //заменить одну инструкцию другой
     }
+
 }

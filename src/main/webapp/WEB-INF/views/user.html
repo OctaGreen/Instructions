@@ -27,7 +27,6 @@
     <h1>User Page</h1>
     <p><button class="btn btn-info" data-toggle="collapse" data-target="#hide-me">Create Instruction</button></p>
     <div id="hide-me" class="starting row collapse">
-        <!--<div class="col-md-2"></div>-->
         <div class="col-md-12">
             <form class="form-horizontal">
                 <div class="panel panel-info">
@@ -51,31 +50,52 @@
                                     </ul>
                                 </div>
                             </div>
+
                         <div class="row">
-                            <div class="col-sm-12">
-                                <p><button class="btn btn-success" data-toggle="collapse" ng-click="addStepBuilder()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add step</button></p>
+                            <div class="col-md-3"></div>
+                            <div class="col-sm-6">
+                                <div class="btn-group btn-group-justified" role="group">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-success" ng-click="saveInstruction()"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Publish</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-warning" ng-click="addStepBuilder()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add step</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-danger" ng-click="deleteStep()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove step</button>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
 
                         <div class="panel-info">
                             <div class="panel-heading"><h3 class="panel-title">Active steps</h3></div>
                             <div class="panel-body" style="background-color: #fcf8e3">
+
                                 <div class="row" ng-repeat="step in stepsList">
-                                    <show-stepbutton></show-stepbutton>
-                                    <div id="showStepAction" class="simpleDemo row collapse">
+                                    <span ng-bind="step.stepIndex=$index" ng-hide="true"></span>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button class="btn btn-info" data-toggle="collapse" data-target="#{{$index}}" ng-bind="headline" style="width: 100%"></button>
+                                        </div>
+                                    </div>
+                                    <div id="{{$index}}" class="simpleDemo row collapse">
                                         <div class="col-md-2">
                                             <tools-panel></tools-panel>
                                         </div>
                                         <div class="col-md-5">
-                                            <editing-panel></editing-panel>
+                                            <editing-panel content-list="contentList"></editing-panel>
                                         </div>
                                         <div class="col-md-5">
-                                            <result-panel></result-panel>
+                                            <result-panel content-list="contentList"></result-panel>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
+
                     </div>
                 </div>
             </form>
@@ -92,13 +112,6 @@
         </div>-->
 
     </div>
-
-
-
-
-
-
-
     </div>
 </div>
 

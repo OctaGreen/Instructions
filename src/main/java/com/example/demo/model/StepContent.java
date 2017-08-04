@@ -1,12 +1,12 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
+@Embeddable
 @Entity
 public class StepContent {
     @Id
@@ -14,13 +14,17 @@ public class StepContent {
     private Long stepContentId;
 
     @NotEmpty
+    @JsonView
     private String type;
 
+    @JsonView
     private String message;
 
+    @JsonView
     private String files;
 
-    @NotEmpty
+    @JsonView
+    @NotNull
     private Integer position;
 
     protected StepContent(){}
@@ -34,15 +38,20 @@ public class StepContent {
 
     public String getType(){ return type; }
 
-    public void setInformation(String information){ this.message = information; }
+    public void setMessage(String message){ this.message = message; }
 
-    public String getInformation(){ return message; }
+    public String getMessage(){ return message; }
 
     public void setFiles(String files){ this.files = files; }
 
     public String getFiles(){ return files; }
 
-    public void setElementId(Integer position){ this.position = position; }
+    public void setPosition(Integer position){ this.position = position; }
 
-    public Integer getElementId(){ return position; }
+    public Integer getPosition(){ return position; }
+
+    @Override
+    public String toString(){
+        return "StepContent{ " + "type: " + type + " message: " + message + " files: " + files + " position: " + position + " }";
+    }
 }

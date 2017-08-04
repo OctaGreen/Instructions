@@ -20,7 +20,7 @@ public class Instruction {
     private String author;
 
     @NotEmpty
-    private Date creationDate;
+    private String creationDate;
 
     //private List<> список тегов к инструкции
 
@@ -30,13 +30,13 @@ public class Instruction {
     @NotEmpty
     private String shortDescription;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     @NotEmpty
     private List<Step> stepsList;
 
     protected Instruction(){}
 
-    public Instruction(String title, String author, Date creationDate, String category, String shortDescription, List<Step> stepsList){
+    public Instruction(String title, String author, String creationDate, String category, String shortDescription, List<Step> stepsList){
         this.title = title;
         this.author = author;
         this.creationDate = creationDate;
@@ -53,9 +53,9 @@ public class Instruction {
 
     public String getAuthor(){ return author; }
 
-    public void setCreationDate(Date creationDate){ this.creationDate = creationDate; }
+    public void setCreationDate(String creationDate){ this.creationDate = creationDate; }
 
-    public Date getCreationDate(){ return creationDate; }
+    public String getCreationDate(){ return creationDate; }
 
     public void setCategory(String category){ this.category = category; }
 
@@ -68,4 +68,9 @@ public class Instruction {
     public void addStepToStepsList(Step step) { stepsList.add(step); }
 
     public List<Step> getStepsList(){ return stepsList; }
+
+    @Override
+    public String toString(){
+        return "Instruction{ " + " title: " + title + " author: " + author + " creationDate: " + creationDate + " category: " + category + " shortDescription: " + shortDescription + " stepsList: " + stepsList;
+    }
 }
