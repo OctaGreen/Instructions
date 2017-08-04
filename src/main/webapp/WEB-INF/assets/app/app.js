@@ -38,6 +38,21 @@ app.controller('AdminController',
     }
 );
 
+app.controller('GetInstructionsController', function($scope, $http){
+   $scope.instructionsList = [];
+   $scope.author = 'anton@something.com';
+   $scope.getAllInstructions = function(){
+       alert('clicked');
+       var url = "/getinstruction/anton@something.com";
+       $http.get(url).success(function(data){
+           alert('success');
+           $scope.instructionsList.push(data)
+       });
+   };
+    $scope.$watch('instructionsList', function(model) {
+        $scope.getInstructionsModel = angular.toJson(model, true);
+    }, true);
+});
 
 /*
 app.controller('CreateInstructionController', function($scope){
@@ -75,7 +90,6 @@ app.controller("StepController", function($scope, $http) {
         {type: "Text field", message: "", position: null},
         {type: "Media field", files: "", position: null}
     ];
-
 ////Начальные значения для шага
     $scope.contentList.push({type: "Text field", message: "Example field. Replace it", position: 0});
     $scope.stepsList.push({headline: $scope.headline, contentList: $scope.contentList, stepIndex: 0});

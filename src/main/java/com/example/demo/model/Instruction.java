@@ -13,23 +13,28 @@ public class Instruction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int instructionId;
 
+    @JsonView
     @NotEmpty
     private String title;
 
+    @JsonView
     @NotEmpty
     private String author;
 
+    @JsonView
     @NotEmpty
     private String creationDate;
 
     //private List<> список тегов к инструкции
-
+    @JsonView
     @NotEmpty
     private String category;
 
+    @JsonView
     @NotEmpty
     private String shortDescription;
 
+    @JsonView
     @OneToMany(cascade = {CascadeType.ALL})
     @NotEmpty
     private List<Step> stepsList;

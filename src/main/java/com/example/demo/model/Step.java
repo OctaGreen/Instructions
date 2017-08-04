@@ -13,13 +13,16 @@ public class Step {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long stepId;
 
+    @JsonView
     @NotEmpty
     private String headline;
 
+    @JsonView
     @OneToMany(cascade = {CascadeType.ALL})
     @NotEmpty
     private List<StepContent> contentList;
 
+    @JsonView
     @NotNull
     private Integer stepIndex;
 

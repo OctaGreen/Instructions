@@ -9,4 +9,6 @@ public interface InstructionRepository extends JpaRepository<Instruction, Long>{
     Instruction findByTitle(String title);
     Instruction findByCategory(String category);
     Instruction findByCreationDate(Date creationDate);
+    Instruction findAllByAuthor(String author);
+    Instruction findFirstByAuthor(String author);
 }
