@@ -9,32 +9,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class InstructionController {
     @Autowired
     InstructionRepository instRepository;
 
-    @GetMapping(value = "/getinstruction/{author}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Instruction getInstructionByAuthor(@PathVariable String author){
-        return instRepository.findFirstByAuthor("anton@something.com");
+    /*@GetMapping(value = "/getinstruction/{author:.*}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Instruction> getInstructionByAuthor(@PathVariable String author){
+        return instRepository.findAllByAuthor(author);
+    }*/
+
+    @GetMapping(value = "/getinstruction/{author:.*}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<Integer, Instruction> getInstructionByAuthor(@PathVariable String author){
+        List<Instruction> list = instRepository.findAllByAuthor(author);
+
     }
 
-   /* @GetMapping("/getinstruction/{title}")
-    public Instruction getInstructionByTitle(@PathVariable String title){
-        return instRepository.findByTitle(title);
-    }
-
-    @GetMapping("/getinstruction/{category}")
-    public Instruction getInstructionByCategory(@PathVariable String category){
-        return instRepository.findByCategory(category);
-    }
-
-    @GetMapping("/getinstruction/{date}")
-    public Instruction getInstructionByDate(@PathVariable Date date){
-        return instRepository.findByCreationDate(date);
-    }
-*/
     @PostMapping(value = "/createinstruction", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody void createInstruction(@RequestBody Instruction instruction){
         instRepository.save(instruction);

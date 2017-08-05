@@ -31,10 +31,10 @@
             <form class="form-horizontal">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <input type="text" class="form-control" placeholder="Title">
+                        <input type="text" class="form-control" placeholder="Title" ng-model="title">
                     </div>
                     <div class="panel-body">
-                        <p><textarea class="form-control" rows="3" placeholder="Short description" style="resize: none"></textarea></p>
+                        <p><textarea class="form-control" rows="3" placeholder="Short description" style="resize: none" ng-model="shortDescription"></textarea></p>
 
                             <div class="row">
                                 <div class="col-sm-8">
@@ -113,16 +113,33 @@
     </div>
     </div>
 
-    <div class="row"  ng-controller="GetInstructionsController">
+    <div ng-controller="GetInstructionsController">
         <p><button class="btn btn-info" ng-click="getAllInstructions()">My Instructions</button></p>
-        <label>{{author}}</label>
-        <div class="col-md-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Generated Instruction</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Generated Instruction</h3>
+                    </div>
+                    <div class="panel-body">
+                        <pre class="code">{{getInstructionsModel}}</pre>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <pre class="code">{{getInstructionsModel}}</pre>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">My instructions</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <a href="#showinstruction/{{instructionItem.title}}" class="list-group-item" ng-repeat="instructionItem in instructionsList">
+                                <p><small>{{ instructionItem.creationDate | date : "medium" }}</small></p>
+                                <h4 class="list-group-item-heading">{{instructionItem.title}}</h4>
+                                <p class="list-group-item-text">{{instructionItem.shortDescription}}</p>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

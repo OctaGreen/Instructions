@@ -42,11 +42,10 @@ app.controller('GetInstructionsController', function($scope, $http){
    $scope.instructionsList = [];
    $scope.author = 'anton@something.com';
    $scope.getAllInstructions = function(){
-       alert('clicked');
-       var url = "/getinstruction/anton@something.com";
+       var url = "/getinstruction/" + $scope.author;
        $http.get(url).success(function(data){
            alert('success');
-           $scope.instructionsList.push(data)
+           $scope.instructionsList = data;
        });
    };
     $scope.$watch('instructionsList', function(model) {
@@ -77,7 +76,7 @@ app.controller('CreateInstructionController', function($scope){
 app.controller("StepController", function($scope, $http) {
     $scope.title = 'some title';
     $scope.author = 'anton@something.com';
-    $scope.creationDate = '02.08.2017';
+    $scope.creationDate = new Date();
     $scope.category = 'some category';
     $scope.shortDescription = 'balblabla short description';
     $scope.stepsList = [];
@@ -94,6 +93,16 @@ app.controller("StepController", function($scope, $http) {
     $scope.contentList.push({type: "Text field", message: "Example field. Replace it", position: 0});
     $scope.stepsList.push({headline: $scope.headline, contentList: $scope.contentList, stepIndex: 0});
 ////
+
+////For Testing purpose do not erase!!!
+   /* $scope.stepsList.push({headline: "First Testing step", contentList: [{type: "Text field", message: "Some textual <h1>Info</h1>", position: 0},{type: "Media field", files: "/api/files/Спирт.gif", position: 1}, {type: "Media field", files: "/api/files/3d.jpg", position: 2}], stepIndex: 0});
+    $scope.stepsList.push({headline: "Second Testing step", contentList: [{type: "Text field", message: "<strong>this text marked as strong</strong>>", position: 0},{type: "Media field", files: "/api/files/Спирт.gif", position: 1}, {type: "Media field", files: "/api/files/3d.jpg", position: 2}], stepIndex: 1});
+    $scope.stepsList.push({headline: "Third Testing step", contentList: [{type: "Text field", message: "Nothing special", position: 0},{type: "Media field", files: "/api/files/Спирт.gif", position: 1}], stepIndex: 2});
+    $scope.stepsList.push({headline: "Forth Testing step", contentList: [{type: "Text field", message: "Whiskey", position: 0},{type: "Media field", files: "/api/files/Спирт.gif", position: 1}, {type: "Media field", files: "/api/files/3205_5.jpg", position: 2}], stepIndex: 3});
+    $scope.stepsList.push({headline: "Fifth Testing step", contentList: [{type: "Text field", message: "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong<h1>hugehugehugehugehugehuge</h1>text", position: 0},{type: "Media field", files: "/api/files/Спирт.gif", position: 1}, {type: "Media field", files: "/api/files/3d.jpg", position: 2}], stepIndex: 4});*/
+////
+
+
     $scope.addStepBuilder = function(){
         $scope.stepsList.push({headline: $scope.headline, contentList: $scope.contentList, stepIndex: $scope.stepIndex});
     };
