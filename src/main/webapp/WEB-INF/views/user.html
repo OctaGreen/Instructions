@@ -114,7 +114,7 @@
     </div>
 
     <div ng-controller="GetInstructionsController">
-        <p><button class="btn btn-info" ng-click="getAllInstructions()">My Instructions</button></p>
+        <p><button class="btn btn-success" ng-click="getAllInstructions()">My Instructions</button></p>
         <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">
@@ -133,7 +133,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="list-group">
-                            <a href="#showinstruction/{{instructionItem.title}}" class="list-group-item" ng-repeat="instructionItem in instructionsList">
+                            <a href="#showinstruction/{{instructionItem.instructionId}}" class="list-group-item" ng-repeat="instructionItem in instructionsList">
                                 <p><small>{{ instructionItem.creationDate | date : "medium" }}</small></p>
                                 <h4 class="list-group-item-heading">{{instructionItem.title}}</h4>
                                 <p class="list-group-item-text">{{instructionItem.shortDescription}}</p>

@@ -12,4 +12,5 @@ public interface InstructionRepository extends JpaRepository<Instruction, Long>{
     List<Instruction> findAllByAuthor(String author);
     Instruction findFirstByAuthor(String author);
     Integer getInstructionIdByTitleAndAuthor(String title, String author);
+    Instruction findInstructionByInstructionId(Integer instructionId);
 }

@@ -50,6 +50,8 @@ public class Instruction {
         this.stepsList.addAll(stepsList);
     }
 
+    public int getInstructionId(){ return instructionId; }
+
     public void setTitle(String title){ this.title = title; }
 
     public String getTitle(){ return title; }

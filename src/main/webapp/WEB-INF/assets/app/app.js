@@ -17,6 +17,14 @@ app.config(['$routeProvider',
                 templateUrl: 'admin.html',
                 controller: 'AdminController'
             }).
+            when('/search', {
+                templateUrl: 'search.html',
+                controller: 'SearchController'
+            }).
+            when('/showinstruction/:instructionId', {
+                templateUrl: 'showinstruction.html',
+                controller: 'ShowInstructionController'
+            }).
             otherwise({redirectTo:'/'});
     }]);
 
@@ -37,6 +45,22 @@ app.controller('AdminController',
 
     }
 );
+
+app.controller('SearchController', function($scope, $http){
+
+});
+
+app.controller('ShowInstructionController', function($scope, $http, $routeParams){
+    $scope.definedInstruction;
+    var url = '/getinstructionbyid/' + $routeParams["instructionId"];
+    $http.get(url).success(function(data){
+        alert('success');
+        $scope.definedInstruction = data;
+    });
+    $scope.$watch('definedInstruction', function(model) {
+        $scope.definedInstructionJson = angular.toJson(model, true);
+    }, true);
+});
 
 app.controller('GetInstructionsController', function($scope, $http){
    $scope.instructionsList = [];
